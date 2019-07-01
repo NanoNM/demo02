@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>My blog</title>
+    <title>发布新的信息</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <script type="text/javascript" src="js/jq.js"></script>
@@ -25,7 +25,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+                <li><a href="/">首页 <span class="sr-only">(current)</span></a></li>
                 <li><a href="#">博客</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
@@ -39,7 +39,7 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
-                <li style="float: right"><a href="/publish">发布</a></li>
+                <li class="active" style="float: right"><a href="/publish">发布</a></li>
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
@@ -65,6 +65,46 @@
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
+    <div class="container-fluid">
+        <div class="fow" style="margin-left: 5%;margin-top: 5%;margin-right: 5%">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid silver">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true" style="font-size: 30px"></span><span style="font-size: 30px;display: inline-block;line-height: 30px;">发布</span>
+                <span style="float:right;border-bottom: 4px solid #2aabd2;font-size: 30px;display: inline-block;line-height: 30px;">添加一条信息</span>
+                <hr>
+                <form action="/publish2server" method="get">
+                    <div class="form-group">
+                        <label for="inputtitle">问题标题</label>
+                        <input type="text" name="inputtitle" class="form-control" id="inputtitle" placeholder="点击输入..">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputarr">问题补充</label>
+                        <textarea class="form-control" name="discreation" id="inputarr" cols="30" rows="20"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputlib">问题标签</label>
+                        <input type="text" name="inputlib" class="form-control" id="inputlib" placeholder="输入标签,如果多个用 , 隔开">
+                    </div>
+                    <p>
+                        <button style="right: auto" type="submit" class="btn btn-success btn-lg">提交问题</button>
+                    </p>
+                </form>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <div style="margin-top: 5px;margin-left: 5px">
+                    <h2 style="margin-left: 20px">问题发起指南</h2>
+                    <ul type="disc">
+                        <li style="font-size: larger;color: #3c3c3c; margin-left: 10px;">提交标题:</li><span style="font-size: medium;color: #8c8c8c;">简单描述问题和内容,注意不要超过<span style="color: #b92c28;">25</span>个字</span>
+                        <br><!--简单换行 没有实际意义-->
+                        <li style="font-size: larger;color: #3c3c3c; margin-left: 10px;">问题补充:</li><span style="font-size: medium;color: #8c8c8c;">请详细的补充你的问题和注释,做到结构清晰,思路清晰,问题要尽量描述到点上!<span style="color: #b92c28;">注意!!: 不要恶意灌水,发水贴!数据库空间很珍贵!!</span></span>
+                        <li>你可以详细的写出你的电脑或服务器配置</li>
+                        <li>你可以详细的写出你的代码运行环境</li>
+                        <li>你可以详细的写出你的代码,和异常信息</li>
+                        <li>你可以详细的写出你的编码工具,例如IDEA.eclipse.Pycharm等</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </nav>
 </body>
 </html>

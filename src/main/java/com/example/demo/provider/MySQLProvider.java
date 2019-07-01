@@ -16,9 +16,8 @@ public class MySQLProvider {
     private String MySQLname;
     @Value("${MySQLpw}")
     private String MySQLpw;
-    @Value("${MySQLDataBase}")
-    private String MySQLDataBase;
-    public Connection getConnection() throws SQLException {
+
+    public Connection getConnection(String MySQLDataBase) throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {

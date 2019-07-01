@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class GitHubBackCodeController {
+    long ID = -1;
+
     @Autowired
     private GitHubProvider gitHubProvider;
     @Autowired
@@ -32,6 +34,13 @@ public class GitHubBackCodeController {
     private String secret;
     @Value("${GitHubBackCodeController.Redirect_uri}")
     private String redirect_uri;
+
+    public long getID() {
+        return ID;
+    }
+    public void setID(long ID) {
+        this.ID = ID;
+    }
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code") String code,
@@ -47,7 +56,7 @@ public class GitHubBackCodeController {
         String tokken = gitHubProvider.getAsscToken(gitHubOTO);
         GithubUser githubUser = gitHubProvider.getuser(tokken);
         String user =githubUser.getLogin();
-        long ID = githubUser.getId();
+        ID = githubUser.getId();
         if(user!=null){
             request.getSession().setAttribute("user",user);
             SQLinsert.insertIntoUserinfo(ID,code,user,tokken);

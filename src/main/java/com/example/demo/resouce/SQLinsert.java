@@ -1,7 +1,9 @@
 package com.example.demo.resouce;
 
+import com.example.demo.Controller.GitHubBackCodeController;
 import com.example.demo.provider.MySQLProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
 import java.sql.Connection;
@@ -12,14 +14,18 @@ import java.util.Date;
 
 @Controller
 public class SQLinsert {
+    @Value("${MySQLDataBaseLogin}")
+    private String MySQLDataBaseLogin;
     @Autowired
     private MySQLProvider mySQLProvider;
+    @Autowired
+    private GitHubBackCodeController gitHubBackCodeController;
     public int insertIntoUserinfo(long id,String accid,String name,String token){
         Connection connection = null;
         int n;
         try {
             String sql = "insert into user value(?,?,?,?,?,?) ON DUPLICATE KEY UPDATE  ID=?;";
-            connection = mySQLProvider.getConnection();
+            connection = mySQLProvider.getConnection(MySQLDataBaseLogin);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1,id);
             preparedStatement.setString(2,accid);
@@ -42,11 +48,12 @@ public class SQLinsert {
         Connection connection = null;
         try{
             String sql = "select * from user where token=?;";
-            connection = mySQLProvider.getConnection();
+            connection = mySQLProvider.getConnection(MySQLDataBaseLogin);
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,token);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
+                gitHubBackCodeController.setID(resultSet.getLong(1));
                 return resultSet.getString(3);
             }
         }catch (Exception e){
