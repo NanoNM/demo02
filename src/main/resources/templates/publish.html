@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>发布新的信息</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
     <script type="text/javascript" src="js/jq.js"></script>
     <script src="js/bootstrap.js" type="application/javascript"></script>
 </head>
@@ -67,11 +67,11 @@
     </div><!-- /.container-fluid -->
     <div class="container-fluid">
         <div class="fow" style="margin-left: 5%;margin-top: 5%;margin-right: 5%">
-            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid silver">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" style="border: 1px solid silver;padding-top: 20px;">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true" style="font-size: 30px"></span><span style="font-size: 30px;display: inline-block;line-height: 30px;">发布</span>
                 <span style="float:right;border-bottom: 4px solid #2aabd2;font-size: 30px;display: inline-block;line-height: 30px;">添加一条信息</span>
                 <hr>
-                <form action="/publish2server" method="get">
+                <form action="/publish2server" method="post">
                     <div class="form-group">
                         <label for="inputtitle">问题标题</label>
                         <input type="text" name="inputtitle" class="form-control" id="inputtitle" placeholder="点击输入..">
@@ -103,6 +103,18 @@
                     </ul>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="warring" th:if="${session.error != null}" style="top:10px;position: fixed;left: 109px;width: 66%;">
+        <div class="alert alert-danger alert-dismissible" role="alert" >
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>异常! </strong><span th:text="${session.error}"></span>
+        </div>
+    </div>
+    <div class="warring" th:if="${session.success != null}" style="top:10px;position: fixed;left: 109px;width: 66%;">
+        <div class="alert alert-success alert-dismissible" role="alert" >
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>成功! </strong><span th:text="${session.success}"></span>
         </div>
     </div>
 </nav>

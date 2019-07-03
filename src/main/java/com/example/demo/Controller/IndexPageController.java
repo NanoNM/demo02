@@ -20,13 +20,15 @@ public class IndexPageController {
     @GetMapping("/")
     public String seyhello(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie:cookies) {
-            if (cookie.getName().equals("token")){
-                flag = sqLinsert.getCToken(cookie.getValue().trim());
+        if(cookies!=null){
+            for (Cookie cookie:cookies) {
+                if (cookie.getName().equals("token")){
+                    flag = sqLinsert.getCToken(cookie.getValue().trim());
+                }
             }
-        }
-        if (flag!=null){
-            request.getSession().setAttribute("user",flag);
+            if (flag!=null){
+                request.getSession().setAttribute("user",flag);
+            }
         }
         return "index";
     }
