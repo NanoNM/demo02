@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,9 +16,11 @@ import java.sql.SQLException;
 @Controller
 public class LoginOut {
     @Autowired
+    private GitHubBackCodeController gitHubBackCodeController;
+    @Autowired
     private MySQLProvider mySQLProvider;
     @GetMapping("/loginout")
-    public String loginOut(HttpServletRequest request){
+    public String loginOut(HttpServletRequest request, HttpServletResponse HttpServletResponse){
         Cookie[] cookies=request.getCookies();
         if(cookies!=null){
             for (Cookie cookie:cookies) {
@@ -28,12 +31,17 @@ public class LoginOut {
                         deleteUser(userID);
 
                     }else{
-                        throw new RuntimeException("数据库连接异常");
+                        request.getSession().setAttribute("user",null);
+                        HttpServletResponse.addCookie(new Cookie("token",null));
+                        gitHubBackCodeController.setID(-1);
+                        return "redirect:/";
                     }
                 }
             }
         }
         request.getSession().setAttribute("user",null);
+        HttpServletResponse.addCookie(new Cookie("token",null));
+        gitHubBackCodeController.setID(-1);
         return "redirect:/";
     }
     private Connection getConnect(){
